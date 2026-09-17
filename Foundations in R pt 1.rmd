@@ -52,6 +52,7 @@ text goes outside
 # Mac: command + option + i 
 # windows pc: control + alt+i
 # manual
+"put words in quotes"
 ```
 
 ## Learning Outcome 1: Mathematical Expressions and Logical Statements
@@ -64,38 +65,42 @@ calculators you may have used previously), but can do much more.
 #### Addition
 
 ```{r}
-
+2+2+3
 ```
 
 #### Subtraction
 
 ```{r}
-
+10-5-6
+30-9
 ```
 
 #### Multiplication
 
 ```{r}
-
+7*8
 ```
 
 #### Division
 
 ```{r}
-
+876/234
 #remainder 
+9/2
+9%%2
 ```
 
 #### Square Root
 
 ```{r}
-
+sqrt(100)
 ```
 
 #### Exponent
 
 ```{r}
-
+7^12
+5^2
 ```
 
 **Important:** In terms of calculations, R follows PEMDAS (algebra
@@ -104,7 +109,8 @@ throwback). Parentheses are going to be **Really** important.
 #### More complicated Math:
 
 ```{r}
-
+3632*53/821732^2+7
+3632*53/(821732^2+7)
 ```
 
 ### Logical Statements
@@ -126,7 +132,7 @@ To assess whether logical statements in R are true, we use two equal
 signs `==`. The above example would look something like this:
 
 ```{r}
-
+"Michael Scott" == "good manager"
 ```
 
 Running this code tells us the statement is false. (**Note**: this is
@@ -138,7 +144,8 @@ However, R can compute mathematical expressions. This means we can look
 at something like this:
 
 ```{r}
-
+3==4
+14-9 == 3*2
 ```
 
 You can also evaluate if statements are **NOT** True. We can do this by
@@ -146,7 +153,8 @@ using the symbol `!=` For instance, I could evaluate Michael Scott as a
 manager by writing:
 
 ```{r}
-
+"Michael Scott"!= "good manager"
+3!=9
 ```
 
 Note: In other words, == is similar to "is" and != is similar to "is
@@ -159,7 +167,10 @@ less than, greater than or equal to, and less than or equal to.
 Examples:
 
 ```{r}
-
+4>3
+5<6
+13*2 <= 38
+3>=2
 ```
 
 We can also make logical statements more complex by creating **and** and
@@ -169,22 +180,37 @@ be true)
 And statements use `&` OR `&&` (if you have more things to evaluate)
 
 ```{r}
-
+3>2 & 4<3
+3>2 & 4<5
+3>2 && 4<5 && 5<6
 ```
 
 Or statements use `|` OR `||` (if you have more things to evaluate)
 
 ```{r}
+9>5|3*3<1
 
 ```
 
 ##### Learning Outcome 1 Practice:
 
 1.  Find the square root of 89
+```{r}
+sqrt(89)
+```
+
 2.  Determine if 3 raised to the 5 power is greater than the square root
     of ten thousand
+```{r}
+3^5 > sqrt(10000)
+```
+    
 3.  Determine if 5 times 7 is less than or equal to 30 or if 4*8 is
     equal to 32
+```{r}
+5*7 <= 30 | 4*8 == 32
+```
+    
 
 ### Learning Outcome 2: Describe how to use common R functions
 
@@ -202,7 +228,7 @@ writing small#:larger#, and would give you all of the numbers in
 between.
 
 ```{r}
-
+1:10000
 ```
 
 `rep()` allows you to repeat something a set number of times. Looking at
@@ -210,7 +236,7 @@ the help file, we can see the arguments contained in the function. To
 use it, we write `rep(thingToBeRepeated, #ofTimes)`.
 
 ```{r}
-
+rep("coffee",13)
 ```
 
 **Note:** For functions, you can either write arguments in the order
@@ -225,15 +251,33 @@ argument label.
 `seq(lowest#, highest#, by=#)`.
 
 ```{r}
-
+seq(1,10, 1)
+seq(5, 1000, 5)
 ```
 
 #### Learning Outcome 2 Practice:
 
 1.  Print every 5th number between 1 and 100.
+```{r}
+seq(1, 100, 5)
+```
+
 2.  Use code to write I love statistics 4 times.
+```{r}
+rep("I love statistics", 4)
+```
+
 3.  Repeat the numbers 1-10 twice
+```{r}
+rep(seq(1, 10), 2)
+rep(1:10, 2)
+```
+
 4.  Print every 3rd number from 1-20 3 times.
+```{r}
+rep(seq(1, 20, 3), 3)
+```
+
 
 ###Learning Outcome 3: Explain the differences between variables,
 vectors, and dataframes
