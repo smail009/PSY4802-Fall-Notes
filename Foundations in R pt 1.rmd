@@ -451,7 +451,7 @@ For instance, we could use indexing to get only cars in the mtcars
 dataset with 4 gears.
 
 ```{r}
-
+mtcars[mtcars$cyl==6,]
 ```
 
 In this case, you'll notice that I put a comma after the logical
@@ -466,15 +466,32 @@ If we wanted to get the same subset of data as above, we could do the
 following:`subset(dataframe, condition)`
 
 ```{r}
+subset(mtcars, mtcars$cyl==6)
 
+library(tidyverse)
+
+mtcars %>% filter(cyl==6)
 ```
 
 ## Practice:
 1. create a subset of data from mtcars that contains all cars with less than 25 mpg. 
+```{r}
+mtcars %>% filter(mpg<25)
+mtcars[mtcars$mpg<25,]
+```
+
 
 2. create a subset of data with all cars that have an automatic transmission
+```{r}
+mtcars %>% filter(am==0)
+```
 
-3. create a subset of data with all cars that have at least  100 horsepower and 4 gears. 
+
+3. create a subset of data with all cars that have at least  100 horsepower and 4 gears.
+```{r}
+mtcars %>% filter(hp>=100, gear==4)
+```
+
 
 
 **A Note on Pipes (more advanced)** If not, we're going to talk about
