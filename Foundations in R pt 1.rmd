@@ -655,4 +655,7 @@ var(chickOne$weight)
 range(ChickWeight$Chick)
 ```
 
+```{r}
+
+```
 

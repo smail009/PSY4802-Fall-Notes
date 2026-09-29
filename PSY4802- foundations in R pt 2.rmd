@@ -54,7 +54,11 @@ It **also** means that you can change names if necessary (when we talk about dat
 More often than not, we're using datasets that we either created or received from collaborators. That means that you may be dealing with problems **past you** graciously left you, different naming conventions, or even needing to manipulate variables that combine information. We'll talk about how to fix some of the more involved ones next week. For now, ones that may be helpful are making sure your column names are all lower case or all upper case. You can do this with the `toupper()` and `tolower()` functions:
 
 ```{r}
+colnames(penguins) <- toupper(colnames(penguins))
+colnames(penguins)
 
+colnames(penguins) <- tolower(colnames(penguins))
+colnames(penguins)
 ```
 
 ### Adding Column Names
@@ -63,11 +67,13 @@ dataframe$newColumn<- whatever you're assigning
 
 For instance, if you want to add a blank column:
 ```{r}
-
+penguins$AylasFavorite<-NA
 ```
 Then you can fill it with whatever information you want. 
 ```{r}
-
+penguins$speciesofpenguins
+penguins$AylasFavorite[penguins$speciesofpenguins=="Adelie"]<-"Yes"
+penguins$AylasFavorite[penguins$speciesofpenguins!="Adelie"]<-"No"
 ```
 or you can fill the new column in based on other data in the dataframe
 ```{r}
@@ -76,23 +82,28 @@ or you can fill the new column in based on other data in the dataframe
 ```
 can do math to fill in the columns
 ```{r}
-
+penguins$BigPenguin <-NA
+penguins$BigPenguin[penguins$body_mass_g > mean(penguins$body_mass_g, na.rm=TRUE)]<-"Big penguin"
+penguins$BigPenguin[penguins$body_mass_g <= mean(penguins$body_mass_g, na.rm=TRUE)]<-"Not so big penguin :("
 ```
 
 #### Learning Outcome 1 Practice: 
 
 1. Change all of the column names in mtcars to capital letters
 ```{r}
-
+colnames(mtcars) <- toupper(colnames(mtcars))
+colnames(mtcars)
 ```
 2. Change the name of the 9th column to reflect the values in the am column description
 ```{r}
-
+colnames(mtcars)[9] <- "Transmission"
+colnames(mtcars)
 ```
 
 3. Change the 4th column name to all lowercase letters 
 ```{r}
-
+colnames(mtcars)[4] <- "hp"
+colnames(mtcars)<- tolower(colnames(mtcars))
 ```
 
 ## Learning Outcome 2: Explain different classes of variables and how to change the class
@@ -112,38 +123,55 @@ We talked about this a little bit last week, but there are different classes (ty
 
 You can check the class of your data using `class()`
 ```{r}
-
+class(penguins$body_mass_g)
 ```
 
 If you want to change the class of your variable, you can assign `as.Preferredclass(dataframe$column)` to the column name
 
 ```{r}
 "is.classname"
-
+is.integer(penguins$body_mass_g)
+is.factor(penguins$body_mass_g)
 "as.classname"
+as.factor(penguins$body_mass_g)
+as.character(penguins$body_mass_g)
 #make a new column 
 
+penguins$speciesofpenguins <- as.factor(penguins$speciesofpenguins)
+class(penguins$speciesofpenguins)
 # going from factor to numeric can cause issues and there's a specific way to do it
 ```
 **DOUBLE CHECK YOUR DATA**
 ```{r}
+penguins$bodyMass2 <- as.factor(penguins$body_mass_g)
+penguins$bodyMass2 <- as.numeric(penguins$bodyMass2)
 
+library(tidyverse)
+penguins |> select(body_mass_g, bodyMass2)
+
+penguins$bodyMass3 <- as.factor(penguins$body_mass_g)
+penguins$bodyMass3 <- as.numeric(levels(penguins$bodyMass3)[penguins$bodyMass3])
+
+penguins |> select(body_mass_g, bodyMass3)
+
+levels(penguins$speciesofpenguins)
 ```
 
 ### Learning Outcome 2 Practice:
 1. Check the class of the horsepower column (hp) 
 ```{r}
-
+class(mtcars$hp)
 ```
 
 2. Change the class of horsepower to a factor
 ```{r}
-
+mtcars$hp2 <- as.factor (mtcars$hp)
 ```
 
 3. Look at summaries of horsepower as a factor and as a number. What do you notice? 
 ```{r}
-
+summary(mtcars$hp)
+summary(mtcars$hp2)
 ```
 
 
@@ -162,48 +190,52 @@ You can make a simple function that adds two to a set of numbers
 Before we make the function, we'll make a vector of numbers (1-10) as our input
 
 ```{r}
-
+number<-1:10
 ```
 
 then, we'll name our function addTwo and give it one argument or input
 
 ```{r}
-
+addTwo<- function(num){num +2}
 ```
 if we run this correctly, it should show up in the environment (top right). 
 
 Then, we can use our function to add two to our vector:
 
 ```{r}
-
+addTwo(3)
+addTwo(number)
 ```
 
 One thing to note- anything you make in a function **stays in the function.** If you want to save it to a dataframe, you treat your new function just like any other R function (i.e. you need to assign the output to a column or variable)
 
 ```{r}
 "dataframe$column <- function"
-
+numDat<- data.frame(number)
+addTwo(numDat$number)
+numDat$plusTwo <-addTwo(numDat$number)
 ```
 
 ## Practice:
 function to multiply by 7
 ```{r}
-
+multiplySeven <- function(num){num * 7}
 ```
 test it out
 ```{r}
-
+multiplySeven(2)
+multiplySeven(number)
 ```
 
 Functions w/ characters
 **my favorite is**
 `paste()`
 ```{r}
-
+favoriteFood<- function(food){paste("My favorite food is", food)}
 ```
 test
 ```{r}
-
+favoriteFood("dumplings")
 ```
 
 ### Multiple argument functions
