@@ -86,4 +86,4 @@ newPrice <- diamonds %>% filter(price >= 2500, price <= 5000)
 ```{r}
 summary(idealOne)
 ```
-**The color that occurs the most is G, at 1418**
+**The color that occurs the most is G, at 1418 in count**
