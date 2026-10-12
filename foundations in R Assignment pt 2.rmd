@@ -9,17 +9,86 @@ For your second R Assignment, complete the questions below. Remember, weekly ass
 
 # Set up
 1. Load the tidyverse library. 
+```{r}
+library(tidyverse) 
+```
+
 2. Load the billboard data. 
+```{r}
+data("billboard")
+```
+
 3. Describe the dataset. 
+**The dataset shows the rankings for a song in the Billboard top 100 and for which ranking it was as for each week in week 1-76 period.** 
+
 4. Print the column names from this dataset. 
+```{r}
+colnames(billboard)
+```
+
 5. Print the first 5 entries in the dataset. 
+```{r}
+billboard[1:5,]
+```
+
 
 # Practice
 1. Create a subset of data that has Jay-Z as the only artist. How many songs are in it?
+```{r}
+billboard %>% filter(artist == "Jay-Z")
+```
+**There are 5 songs Jay-Z made that ended up in the filter.**
+
 2. In the original dataset, use filter to find information about the song "All the small things." What was the highest position (i.e. lowest number) this song reached on the billboard 100? 
+```{r}
+billboard %>% filter(track == "All The Small Things")
+```
+**The highest position it reached was in week 12, where it ended up at number 6 on the Top 100.**
+
 3. Create a subset of data for songs Tim McGraw sang. Summarize the data for wk 1.
+```{r}
+billboard %>% filter(artist == "McGraw, Tim")
+McGrawTim <- billboard %>% filter(artist == "McGraw, Tim")
+summary(McGrawTim$wk1)
+```
+
 4. Create a function that can be used to determine if Britney Spears sang the song. 
+
+```{r}
+britneySpears <- function(arg1){
+  ifelse(billboard$artist=="Spears, Britney", "yes", "no")
+}
+```
+
 5. Test your function on the billboard data. Save the results to a new column called "wasItBritney"
+```{r}
+billboard$wasItBritney <- britneySpears(billboard$track)
+print(billboard$wasItBritney)
+```
 6. Use a for loop to determine if a song placed 50 or below or placed above 50 during the first week. 
+```{r}
+billboard$forBillboard <- NA
+
+for(i in 1:nrow(billboard)){
+  billboard$forBillboard[i] <- billboard$wk1[i]<50
+}
+```
 7. Use an if else statement to determine the same information as you obtained with the for loop. 
+```{r}
+billboard$ifElseBillboard <- NA
+
+for(i in 1:nrow(billboard)){
+  if(billboard$wk1[i]<50){
+    billboard$ifElseBillboard[i] <- "yes"
+  }
+  else{billboard$ifElseBillboard[i]<- "no"}
+}
+```
 8. Compare your results in 6 and 7. 
+```{r}
+print(billboard$forBillboard)
+print(billboard$ifElseBillboard)
+
+```
+
+**Both of them got the same results. I was able to change the words in the columns for my if else statements, but the for loop got the same results with less. For loops used TRUE/FALSE by default.**
