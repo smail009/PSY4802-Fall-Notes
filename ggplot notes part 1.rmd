@@ -222,7 +222,11 @@ ggplot(mtcars, aes(gear, fill=as.factor(mpg)))+geom_bar()
 **Scatter plot**
 We can make scatter plots using the argument `geom_point()`. We'll make a graph of carat by price. 
 ```{r}
+ggplot(diamonds, aes(price, carat))+ geom_point(shape = 8, color="pink")+geom_smooth(method="lm", linetype="dashed", width=1, color="black")
+```
 
+```{r}
+ggplot(diamonds, aes(price, carat, color=cut))+ geom_point()
 ```
 
 #jitter()
@@ -233,58 +237,32 @@ We can make scatter plots using the argument `geom_point()`. We'll make a graph 
 ### Practice
 - make a scatter plot of bill length and bill depth. 
 ```{r}
-
+ggplot(penguins, aes(bill_len, bill_dep))+geom_point()
 ```
 
 - modify the graph to include at least 2of the style elements we talked about
 ```{r}
-
+ggplot(penguins, aes(bill_len, bill_dep))+geom_point(shape=1)+geom_smooth(method="lm", linetype="dashed", width=1, color="black")
+#se=FALSE removes grey cloud from line
 ```
 
-**Note:**In this case, `geom_point()` is the best option to make our scatter plot. If you work with small datasets, the points may be overlapping and make it look like you have less data. In these cases, you can use `geom_jitter()`, which will offset the dots slightly and allow you to see each participant.  
+**Note:**In this case, `geom_point()` is the best option to make our scatter plot. If you work with small datasets, the points may be overlapping and make it look like you have less data. In these cases, you can use `geom_jitter()`, which will offset the dots slightly and allow you to see each participant. 
 
-**Inserting a regression line**
-We can include a regression line into our graph using `geom_smooth()`.
 ```{r}
+ggplot(diamonds, aes(color, price))+geom_boxplot()+geom_jitter()
 
-```
-We can customize whether the regression line has a confidence interval surrounding it. You may be asking yourself **what confidence interval**. Carat and price are very highly correlated. let's use an mtcars example to see how we can change it. 
-w/ 95% confidence interval shaded
-```{r}
-
-```
-**Changing scatterplots**
-```{r}
-
-```
-
-####Practice: 
-1. Create a scatter plot of the body mass and flipper length variables. 
-```{r}
-
-```
-2. Change the color of the points to your favorite color. 
-```{r}
-
-```
-3. Change the shape of the points. 
-```{r}
-
-```
-4. Add a line of best fit to your scatter plot. 
-```{r}
-
-
+ggplot(mtcars, aes(as.factor(gear), mpg))+geom_boxplot(fill="aquamarine", color="black")+geom_jitter(color="navyblue")
 ```
 
 **Line graphs**
 Line graphs follow a similar to scatterplots, but use the geom_line function. Color customizations follow the same rules as scatterplots. 
 include group in aes
 ```{r}
+ggplot(diamonds, aes(price, carat))+ geom_line()
 
+data("ChickWeight")
+ggplot(ChickWeight, aes(Time, weight, group=Chick, color=Chick))+ geom_line()
 ```
-
-
 
 I won't talk as much about these graphs, but happy to answer questions. 
 
@@ -293,7 +271,9 @@ I hope that the pattern is starting to make sense, but the only difference with 
 
 
 ```{r twoVariableBoxplot}
-
+ggplot(diamonds, aes(y=price))+geom_boxplot()
+ggplot(diamonds, aes(x=price))+geom_boxplot()
+ggplot(diamonds, aes(x=cut, y=price))+geom_boxplot()
 ```
 
 
@@ -301,7 +281,7 @@ I hope that the pattern is starting to make sense, but the only difference with 
 
 ### Violin plot
 ```{r}
-
+ggplot(diamonds, aes(cut, price))+geom_violin(fill="aquamarine", color="cadetblue")
 ```
 
 ```{r}
