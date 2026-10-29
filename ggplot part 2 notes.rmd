@@ -40,7 +40,7 @@ ggplot(diamonds, aes(color, price, fill=color)) +geom_boxplot()+ scale_fill_manu
 
 ### Practice:
 ```{r}
-
+a
 ```
 
 1) make a graph of bill length and bill depth. Include island as a third variable
