@@ -1,0 +1,54 @@
+---
+title: "ggplot pt 1 assignment"
+author: "Amanda Mae Woodward"
+date: "2026-10-29"
+output: html_document
+---
+1. open the starwars dataset in tidyverse
+```{r}
+library(tidyverse)
+data("starwars")
+```
+
+2. create a graph showing the frequency of eye colors in the dataset. 
+```{r}
+ggplot(starwars, aes(eye_color))+geom_bar()
+```
+
+3. Customize your graph to make it more presentable. Consider color, backgrounds, axes, etc. 
+```{r}
+ggplot(starwars, aes(eye_color))+geom_bar(fill= "#086357", color="black")+theme_classic()+labs(x="Eye Color", y="Frequency", title="Frequency of Eye Colors in Starwars Movies")
+```
+
+4. Create a graph displaying information about character's height in each homeworld. 
+```{r}
+ggplot(starwars, aes(height, homeworld))+geom_point(na.rm=TRUE)
+```
+
+5. Customize your graph to make it more presentable. Consider color, backgrounds, axes, etc.
+```{r}
+ggplot(starwars, aes(height, homeworld))+geom_point(na.rm=TRUE, color="#3248a9")+theme_classic()+labs(x="Heights (cm)", y="Homeworld") 
+```
+
+6. Create a graph of character's height by mass. 
+```{r}
+ggplot(starwars, aes(height, mass))+geom_point(na.rm=TRUE)
+```
+
+7.Customize your graph to make it more presentable. Consider color, backgrounds, axes, etc.
+```{r}
+ggplot(starwars, aes(height, mass))+geom_point(na.rm=TRUE, color="#b4d5e6")+theme_gray()+labs(x="Height (cm)", y="Weight (Mass)", title="Height and Weight of Starwars Characters")
+```
+
+8. Add gender as a third variable to your graph of height by mass. 
+```{r}
+library(viridis)
+ggplot(starwars, aes(height, mass, color=gender))+geom_point(na.rm=TRUE) 
+```
+
+
+9. Customize your graph to make it more presentable. Consider color, backgrounds, axes, etc.
+```{r}
+ggplot(starwars, aes(height, mass, color=gender))+geom_point(na.rm=TRUE) +scale_color_manual(values=c("#0f6610", "#5a2c6f"))+labs(x="Height (cm)", y="Weight (Mass)", title="Height, Weight, and Gender of Starwars Characters")
+```
+
