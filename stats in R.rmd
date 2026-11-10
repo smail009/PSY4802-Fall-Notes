@@ -57,7 +57,7 @@ mentalHealthDat |> summarize(meanCortisol = mean(cortisolLevel), medianCortisol 
 class(mentalHealthDat$sleepQuality)
 mentalHealthDat$sleepQuality <- as.factor(mentalHealthDat$sleepQuality)
 
-mfv(mentalHealthDat$cortisolLevel)[mentalHealthDat$sleepQuality=="Poor"]
+mfv(mentalHealthDat$cortisolLevel[mentalHealthDat$sleepQuality=="Poor"])
 levels(mentalHealthDat$sleepQuality)
   
 mentalHealthDat |> group_by(sleepQuality) |> reframe(meanCortisol = mean(cortisolLevel), medianCortisol = median(cortisolLevel), modeCortisol = mfv(cortisolLevel))
